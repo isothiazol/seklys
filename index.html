@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+    <link href="styles/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <center>
+        <object type="image/svg+xml" data="images/logo.svg" class="logo">
+          Logo <!-- fallback image in CSS -->
+        </object>
+    </center>
+    <h1 id="MainHeader">Heading</h1>
+
+    <div class="divPlot">
+      <canvas id="myChart" width="1000px" height="300px"></canvas>
+    </div>
+
+    <div class="inputContainer" id='inputContainer'>
+      <label for="ldate">Date:</label>
+      <input id="ldate" type="date">
+      <label for="ltime">Bike Time:</label>
+      <input id="ltime" type="text" size="3">
+      <button type='button' id="submitBike">Submit</button> 
+    </div>
+    
+    <p id='formMsg'></p>
+    
+    <br><br><br><br>
+    <a href="index.html" id='linkMain'>Main</a>
+    <a href="index.html" id='linkBike'>Bike Tracking</a>
+  </body>
+
+  <script src="scripts/Chart.js"></script>
+  <script src="scripts/main.js"></script>
+</html>
