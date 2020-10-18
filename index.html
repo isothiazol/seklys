@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+    <link href="styles/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <center>
+        <object type="image/svg+xml" data="images/logo.svg" class="logo"></object>
+    </center>
+    <h1 id="MainHeader">Heading</h1>
+
+    <center>
+      <select name="selectGraph" id="selectGraph">
+        <option value="eachTimeGraph">Time per day</option>
+        <option value="cumTimeGraph">Accumulated time</option>
+      </select>
+    </center>
+    <br>
+
+    <div class="divPlot">
+      <canvas id="myChart" width="1000px" height="300px"></canvas>
+    </div>
+
+    <div class="inputContainer" id='inputContainer'>
+      <input id="ldate" type="date" style="color: #292F33">
+      <br>
+      <input id="ltime" type="text" size="14" placeholder='Insert minutes' style="color:#292F33">
+      <br>
+      <button type='button' id="submitBike">Update</button> 
+      <br>
+      <p id='formMsg'></p>
+    </div>
+
+    <div class="goalContainer" id='goalContainer'>
+      <input id="goalBike" type="text" size="14" placeholder='Insert goal minutes bike' style="color:#292F33">
+      <br>
+      <button type='button' id="updateGoalBike">Update</button> 
+      <br>
+      <p id='formMsg'></p>
+      <br><br><br><br>
+      <button type='button' id="reset">Reset Data</button> 
+    </div>
+    
+    
+    
+    <br><br><br><br>
+    <a href="index.html" id='linkMain'>Main</a>
+    <a href="index.html" id='linkBike'>Bike Tracking</a>
+    <a href="index.html" id='linkSettings'>Settings</a>
+  </body>
+
+  <script src="scripts/Chart.js"></script>
+  <script src="scripts/main.js"></script>
+</html>
