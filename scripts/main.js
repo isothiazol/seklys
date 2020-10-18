@@ -27,7 +27,6 @@ function displayMain(){
     formMsg.style.display = "none";
     ctx.style.display = "none";
     submitButton.style.display = "none";
-
     mainHeading.textContent = 'Hello world!';
 }
 
@@ -59,8 +58,6 @@ function plotChart(data) {
 
     // Extracting sorted data
     var sorted_vals = sorted_days.map(x => data[x])
-
-    
 
     // Plot
     
@@ -101,17 +98,29 @@ submitButton.onclick = function() {
         formMsg.textContent = 'Cannot leave empty!';
     }
     else{
-        var dataBike = JSON.parse(localStorage.getItem("dataBike"));
-        if (dataBike){
-            dataBike[ldate.value] = parseFloat(ltime.value)
-            localStorage.setItem("dataBike", JSON.stringify(dataBike));
+        if(isNaN(ltime.value)){
+            formMsg.textContent = 'Time needs to be a number!';
         }
         else{
-            var dataBike = {};
-            dataBike[ldate.value] = parseFloat(ltime.value)
-            localStorage.setItem("dataBike", JSON.stringify(dataBike));
-        } 
-        plotChart(dataBike);
+            var dataBike = JSON.parse(localStorage.getItem("dataBike"));
+            if (dataBike){
+                if(dataBike[ldate.value]){
+                    dataBike[ldate.value] = dataBike[ldate.value] + parseFloat(ltime.value)
+                }
+                else{
+                    dataBike[ldate.value] = parseFloat(ltime.value)
+                }
+                
+                localStorage.setItem("dataBike", JSON.stringify(dataBike));
+            }
+            else{
+                var dataBike = {};
+                dataBike[ldate.value] = parseFloat(ltime.value)
+                localStorage.setItem("dataBike", JSON.stringify(dataBike));
+            } 
+            plotChart(dataBike);
+        }
+        
     }
 }
 

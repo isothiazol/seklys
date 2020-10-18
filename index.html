@@ -8,9 +8,7 @@
 
   <body>
     <center>
-        <object type="image/svg+xml" data="images/logo.svg" class="logo">
-          Logo <!-- fallback image in CSS -->
-        </object>
+        <object type="image/svg+xml" data="images/logo.svg" class="logo"></object>
     </center>
     <h1 id="MainHeader">Heading</h1>
 
@@ -19,14 +17,16 @@
     </div>
 
     <div class="inputContainer" id='inputContainer'>
-      <label for="ldate">Date:</label>
-      <input id="ldate" type="date">
-      <label for="ltime">Bike Time:</label>
-      <input id="ltime" type="text" size="3">
-      <button type='button' id="submitBike">Submit</button> 
+      <input id="ldate" type="date" style="color: #292F33">
+      <br>
+      <input id="ltime" type="text" size="14" placeholder='Insert minutes' style="color:#292F33">
+      <br>
+      <button type='button' id="submitBike">Update</button> 
+      <br>
+      <p id='formMsg'></p>
     </div>
     
-    <p id='formMsg'></p>
+    
     
     <br><br><br><br>
     <a href="index.html" id='linkMain'>Main</a>
