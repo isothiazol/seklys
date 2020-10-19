@@ -17,6 +17,10 @@ const selectGraph = document.getElementById('selectGraph');
 
 const cumulativeSum = (sum => value => sum += value)(0);
 
+function postData(url, data) {
+    return fetch(url, {method: "POST", body: JSON.stringify(data)});
+}
+
 function updateDisplay(){
     var displayState = localStorage.getItem("displayState");
 
@@ -205,10 +209,10 @@ submitButton.onclick = function() {
             var dataBike = JSON.parse(localStorage.getItem("dataBike"));
             if (dataBike){
                 if(dataBike[ldate.value]){
-                    dataBike[ldate.value] = dataBike[ldate.value] + parseFloat(ltime.value)
+                    dataBike[ldate.value] = dataBike[ldate.value] + parseFloat(ltime.value);
                 }
                 else{
-                    dataBike[ldate.value] = parseFloat(ltime.value)
+                    dataBike[ldate.value] = parseFloat(ltime.value);
                 }
                 
                 localStorage.setItem("dataBike", JSON.stringify(dataBike));
@@ -217,8 +221,9 @@ submitButton.onclick = function() {
                 var dataBike = {};
                 dataBike[ldate.value] = parseFloat(ltime.value)
                 localStorage.setItem("dataBike", JSON.stringify(dataBike));
-            } 
+            }
             plotChart(dataBike);
+            postData('/', {'dataBike': dataBike})
         }
         
     }
@@ -230,6 +235,7 @@ updateGoalBike.onclick = function() {
     }
     else{
         localStorage.setItem("goalBike",  parseFloat(goalBike.value));
+        postData('/', {'goalBike': goalBike.value})
         goalBike.value = null
     }
 }
@@ -248,7 +254,8 @@ linkSettings.onclick = function() {
 
 reset.onclick = function() {
     localStorage.setItem("dataBike", null);
-    alert('Data reset completed !')
+    alert('Data reset completed !');
+    fetch('/reset');
 }
 
 selectGraph.addEventListener("change", foo);
@@ -259,3 +266,12 @@ function foo() {
 }
 
 updateDisplay();
+
+var dataBike = JSON.parse(localStorage.getItem("dataBike"));
+if (!dataBike){
+    fetch('/data')
+    .then(response => response.json())
+    .then(data => data['dataBike'] ? localStorage.setItem("dataBike", JSON.stringify(data['dataBike'])) : null)
+}
+
+    
