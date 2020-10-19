@@ -5,7 +5,7 @@
 */
 html {
     font-size: 100%;
-    /*font-family: "SongMyung";*/
+    /*font-family: 'SongMyung';*/
     background-color: #55ACEE;
   }
 
@@ -41,28 +41,21 @@ body {
         color: #66757F;
         font-size: 20px;
     }
-    a:link {
+    .linkas {
         color: #292F33;
         font-size: 30px;
         text-decoration: none;
         font-weight: bold;
         margin: 20px;
     }
-    
-    a:visited {
-        color: #292F33;
-        font-size: 30px;
-        text-decoration: none;
-        font-weight: bold;
-        margin: 20px;
-    }
-    
-    a:hover {
+
+    .linkas:hover {
         color: #55ACEE;
         font-size: 30px;
         text-decoration: none;
         font-weight: bold;
         margin: 20px;
+        cursor: pointer;
     }
   }
 
@@ -83,41 +76,41 @@ body {
         font-size: 20px;
     }
 
-    a:link {
+    .linkas {
         color: #292F33;
         font-size: 30px;
         text-decoration: none;
         font-weight: bold;
         margin: 20px;
     }
-    
-    a:visited {
-        color: #292F33;
-        font-size: 30px;
-        text-decoration: none;
-        font-weight: bold;
-        margin: 20px;
-    }
-    
-    a:hover {
+        
+    .linkas:hover {
         color: #55ACEE;
         font-size: 30px;
         text-decoration: none;
         font-weight: bold;
         margin: 20px;
+        cursor: pointer;
     }
   }
 
 .inputContainer{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;  
-    grid-gap: 10px;  
-    align-items: center;
-    margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;  
+  grid-gap: 10px;  
+  align-items: center;
+  margin-top: 50px;
 }
 
 button{
     width: 100px;
     margin-top: 20px;
+}
+
+.linkContainer{
+  display: flex;
+  width: 50%;
+  margin: auto;
+  white-space: nowrap;
 }

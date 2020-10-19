@@ -94,7 +94,7 @@ const requestListener = function (req, res) {
       });
       req.on('end', () => {
           let data = JSON.parse(body);
-          aux.saveFile('data/data.json', data)
+          aux.saveData('data/data.json', data)
           res.end('ok');
       });
       break;

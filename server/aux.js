@@ -20,7 +20,8 @@ const mimeTypes = {
 };
 
 function resetData(){
-    fs.unlinkSync('./data/data.json');
+    const path = './data/data.json'
+    fs.existsSync(path) ? fs.unlinkSync(path) : null ;
 }
 
 function loadFile(filePath){
@@ -50,16 +51,31 @@ function loadFile(filePath){
 }
 
 
-function saveFile(filePath, data){
+function saveData(filePath, dataIn){
 
-    fs.writeFile(filePath, JSON.stringify(data), function(err) {
-        if(err) {
-            return console.log(err);
-        }
-        //console.log("The file was saved!");
-    }); 
+    if(!fs.existsSync(filePath)){
+        fs.writeFile(filePath, JSON.stringify(dataIn), function(err) {
+            if(err) {return console.log(err);}
+        }); 
+    }
+    else{
+
+        var dataDisk = fs.readFile(filePath, 'utf8' , (err, data) => {
+                            if (err) {return console.log(err);}
+
+                            var contentDisk = JSON.parse(data);
+                            console.log(contentDisk);
+
+                            dataIn['dataBike'] ? contentDisk['dataBike'] = dataIn['dataBike'] : null ;
+                            dataIn['goalBike'] ? contentDisk['goalBike'] = dataIn['goalBike'] : null ;
+
+                            fs.writeFile(filePath, JSON.stringify(contentDisk), function(err) {
+                                if(err) {return console.log(err);}
+                            });
+                        })
+    }
 }
 
 module.exports.loadFile = loadFile;
-module.exports.saveFile = saveFile;
+module.exports.saveData = saveData;
 module.exports.resetData = resetData;
