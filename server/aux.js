@@ -19,7 +19,14 @@ const mimeTypes = {
     '.wasm': 'application/wasm'
 };
 
+function resetData(){
+    fs.unlinkSync('./data/data.json');
+}
+
 function loadFile(filePath){
+
+    const extname = String(path.extname(filePath)).toLowerCase();
+    const contentType = mimeTypes[extname] || 'application/octet-stream';
 
     var val = {};
     var status = 0;
@@ -28,16 +35,31 @@ function loadFile(filePath){
         const data = fs.readFileSync(filePath, 'utf8')
         val = data;
         status = 200;
+
+        if (extname === '.json'){
+            val = JSON.parse(val);
+        }
+
         } 
     catch (err) {
         val = err;
         status = 404;
         }
 
-    const extname = String(path.extname(filePath)).toLowerCase();
-    const contentType = mimeTypes[extname] || 'application/octet-stream';
-
     return [status, val, contentType]
 }
 
+
+function saveFile(filePath, data){
+
+    fs.writeFile(filePath, JSON.stringify(data), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        //console.log("The file was saved!");
+    }); 
+}
+
 module.exports.loadFile = loadFile;
+module.exports.saveFile = saveFile;
+module.exports.resetData = resetData;
