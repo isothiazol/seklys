@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <title>My test page</title>
-    <link href="styles/style.css" rel="stylesheet">
+    <link href='styles/style.css' rel='stylesheet'>
   </head>
 
   <body>
     <center>
-        <object type="image/svg+xml" data="images/logo.svg" class="logo"></object>
+        <object type='image/svg+xml' data='images/logo.svg' class='logo'></object>
     </center>
-    <h1 id="MainHeader">Heading</h1>
+    <h1 id='MainHeader'>Heading</h1>
 
     <center>
-      <select name="selectGraph" id="selectGraph">
-        <option value="eachTimeGraph">Time per day</option>
-        <option value="cumTimeGraph">Accumulated time</option>
+      <select name='selectGraph' id='selectGraph'>
+        <option value='eachTimeGraph'>Time per day</option>
+        <option value='cumTimeGraph'>Accumulated time</option>
       </select>
     </center>
     <br>
 
-    <div class="divPlot">
-      <canvas id="myChart" width="1000px" height="300px"></canvas>
+    <div class='divPlot'>
+      <canvas id='myChart' width='1000px' height='300px'></canvas>
     </div>
 
-    <div class="inputContainer" id='inputContainer'>
-      <input id="ldate" type="date" style="color: #292F33">
+    <div class='inputContainer' id='inputContainer'>
+      <input id='ldate' type='date' style='color: #292F33'>
       <br>
-      <input id="ltime" type="text" size="14" placeholder='Insert minutes' style="color:#292F33">
+      <input id='ltime' type='text' size='14' placeholder='Insert minutes' style='color:#292F33'>
       <br>
-      <button type='button' id="submitBike">Update</button> 
+      <button type='button' id='submitBike'>Update</button> 
       <br>
       <p id='formMsg'></p>
     </div>
 
-    <div class="goalContainer" id='goalContainer'>
-      <input id="goalBike" type="text" size="14" placeholder='Insert goal minutes bike' style="color:#292F33">
+    <div class='goalContainer' id='goalContainer'>
+      <input id='goalBike' type='text' size='14' placeholder='Goal in minutes' style='color:#292F33'>
       <br>
-      <button type='button' id="updateGoalBike">Update</button> 
+      <button type='button' id='updateGoalBike'>Update</button> 
       <br>
       <p id='formMsg'></p>
       <br><br><br><br>
-      <button type='button' id="reset">Reset Data</button> 
+      <button type='button' id='reset'>Reset Data</button> 
     </div>
     
     
     
     <br><br><br><br>
-    <a href="index.html" id='linkMain'>Main</a>
-    <a href="index.html" id='linkBike'>Bike Tracking</a>
-    <a href="index.html" id='linkSettings'>Settings</a>
+    <div class='linkContainer'>
+      <p class='linkas' id='linkMain'>Main</p>
+      <p class='linkas' id='linkBike'>Bike Tracking</p>
+      <p class='linkas' id='linkSettings'>Settings</p>
+    </div>
+
   </body>
 
-  <script type="text/javascript" src="scripts/Chart.js"></script>
-  <script type="text/javascript" src="scripts/main.js"></script>
+  <script type='text/javascript' src='scripts/Chart.js'></script>
+  <script type='text/javascript' src='scripts/main.js'></script>
 </html>

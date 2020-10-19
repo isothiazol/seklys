@@ -18,11 +18,11 @@ const selectGraph = document.getElementById('selectGraph');
 const cumulativeSum = (sum => value => sum += value)(0);
 
 function postData(url, data) {
-    return fetch(url, {method: "POST", body: JSON.stringify(data)});
+    return fetch(url, {method: 'POST', body: JSON.stringify(data)});
 }
 
 function updateDisplay(){
-    var displayState = localStorage.getItem("displayState");
+    var displayState = localStorage.getItem('displayState');
 
     if (displayState === 'main'){
         displayMain();
@@ -39,24 +39,25 @@ function updateDisplay(){
 }
 
 function displayMain(){
-    inputContainer.style.display = "none";
-    formMsg.style.display = "none";
-    ctx.style.display = "none";
-    submitButton.style.display = "none";
-    goalContainer.style.display = "none";
-    reset.style.display = "none";
-    selectGraph.style.display = "none";
+    inputContainer.style.display = 'none';
+    formMsg.style.display = 'none';
+    ctx.style.display = 'none';
+    submitButton.style.display = 'none';
+    goalContainer.style.display = 'none';
+    reset.style.display = 'none';
+    selectGraph.style.display = 'none';
 
     mainHeading.textContent = 'Sveiki atvykę į savo asmeninio tikslo stebėjimo įrankį';
 }
 
 function displayBikeTracking(){
-    inputContainer.style.display = "block";
-    formMsg.style.display = "block";
-    ctx.style.display = "block";
-    submitButton.style.display = "block";
-    goalContainer.style.display = "none";
-    reset.style.display = "none";
+    inputContainer.style.display = 'block';
+    formMsg.style.display = 'block';
+    ctx.style.display = 'block';
+    submitButton.style.display = 'block';
+    goalContainer.style.display = 'none';
+    reset.style.display = 'none';
+    selectGraph.style.display = 'block';
 
     mainHeading.textContent = 'Bike Tracking';
     ldate.valueAsDate = new Date();
@@ -65,20 +66,20 @@ function displayBikeTracking(){
 }
 
 function displaySettings(){
-    inputContainer.style.display = "none";
-    formMsg.style.display = "none";
-    ctx.style.display = "none";
-    submitButton.style.display = "none";
-    goalContainer.style.display = "block";
-    reset.style.display = "block";
-    selectGraph.style.display = "none";
+    inputContainer.style.display = 'none';
+    formMsg.style.display = 'none';
+    ctx.style.display = 'none';
+    submitButton.style.display = 'none';
+    goalContainer.style.display = 'block';
+    reset.style.display = 'block';
+    selectGraph.style.display = 'none';
 
     mainHeading.textContent = 'Settings';
 }
 
 function triggerPlot(){
-    if (localStorage.getItem("dataBike")){
-        var dataBike = JSON.parse(localStorage.getItem("dataBike"));
+    if (localStorage.getItem('dataBike')){
+        var dataBike = JSON.parse(localStorage.getItem('dataBike'));
         plotChart(dataBike);
     }
     else{
@@ -97,11 +98,11 @@ function plotChart(data) {
     // Extracting sorted data
     var sorted_vals = sorted_days.map(x => data[x])
 
-    var goal_vals = sorted_days.map(x => localStorage.getItem("goalBike"))
+    var goal_vals = sorted_days.map(x => localStorage.getItem('goalBike'))
     var pointsColor = sorted_days.map(x => 'rgba(85, 172, 238, 1)')
 
     // Getting graph type
-    var graphType = localStorage.getItem("graphType");
+    var graphType = localStorage.getItem('graphType');
 
     // Plot
     
@@ -198,6 +199,7 @@ function plotChart(data) {
   }
 
 submitButton.onclick = function() {
+    updateGoalBike.disabled = true;
     if (ldate.value === '' || ltime.value === '') {
         formMsg.textContent = 'Cannot leave empty!';
     }
@@ -206,7 +208,7 @@ submitButton.onclick = function() {
             formMsg.textContent = 'Time needs to be a number!';
         }
         else{
-            var dataBike = JSON.parse(localStorage.getItem("dataBike"));
+            var dataBike = JSON.parse(localStorage.getItem('dataBike'));
             if (dataBike){
                 if(dataBike[ldate.value]){
                     dataBike[ldate.value] = dataBike[ldate.value] + parseFloat(ltime.value);
@@ -215,63 +217,83 @@ submitButton.onclick = function() {
                     dataBike[ldate.value] = parseFloat(ltime.value);
                 }
                 
-                localStorage.setItem("dataBike", JSON.stringify(dataBike));
+                localStorage.setItem('dataBike', JSON.stringify(dataBike));
             }
             else{
                 var dataBike = {};
                 dataBike[ldate.value] = parseFloat(ltime.value)
-                localStorage.setItem("dataBike", JSON.stringify(dataBike));
+                localStorage.setItem('dataBike', JSON.stringify(dataBike));
             }
             plotChart(dataBike);
             postData('/', {'dataBike': dataBike})
         }
-        
     }
+    submitButton.disabled = false;
 }
 
 updateGoalBike.onclick = function() {
+    updateGoalBike.disabled = true;
     if(isNaN(goalBike.value)){
 
     }
     else{
-        localStorage.setItem("goalBike",  parseFloat(goalBike.value));
+        localStorage.setItem('goalBike',  parseFloat(goalBike.value));
         postData('/', {'goalBike': goalBike.value})
         goalBike.value = null
     }
+    updateGoalBike.disabled = false;
 }
 
 linkMain.onclick = function() {
-    localStorage.setItem("displayState", 'main');
+    linkMain.disabled = true;
+    localStorage.setItem('displayState', 'main');
+    updateDisplay();
+    linkMain.disabled = false;
 }
 
 linkBike.onclick = function() {
-    localStorage.setItem("displayState", 'bike');
+    linkBike.disabled = true;
+    localStorage.setItem('displayState', 'bike');
+    updateDisplay();
+    linkBike.disabled = false;
 }
 
 linkSettings.onclick = function() {
-    localStorage.setItem("displayState", 'settings');
+    linkSettings.disabled = true;
+    localStorage.setItem('displayState', 'settings');
+    updateDisplay();
+    linkSettings.disabled = false;
 }
 
 reset.onclick = function() {
-    localStorage.setItem("dataBike", null);
+    reset.disabled = true;
     alert('Data reset completed !');
     fetch('/reset');
+    localStorage.clear();
+    reset.disabled = false;
 }
 
-selectGraph.addEventListener("change", foo);
+selectGraph.addEventListener('change', foo);
 function foo() {
     const value = selectGraph.options[selectGraph.selectedIndex].value;
-    localStorage.setItem("graphType", value);
+    localStorage.setItem('graphType', value);
     triggerPlot(); 
 }
 
 updateDisplay();
 
-var dataBike = JSON.parse(localStorage.getItem("dataBike"));
+var dataBike = JSON.parse(localStorage.getItem('dataBike'));
 if (!dataBike){
     fetch('/data')
     .then(response => response.json())
-    .then(data => data['dataBike'] ? localStorage.setItem("dataBike", JSON.stringify(data['dataBike'])) : null)
+    .then(data => data['dataBike'] ? localStorage.setItem('dataBike', JSON.stringify(data['dataBike'])) : null)
+}
+
+var dataBike = JSON.parse(localStorage.getItem('goalBike'));
+if (!dataBike){
+    fetch('/data')
+    .then(response => response.json())
+    .then(data => data['goalBike'] ? localStorage.setItem('goalBike', JSON.stringify(data['goalBike'])) : null)
 }
 
     
