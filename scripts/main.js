@@ -1,3 +1,4 @@
+
 const mainHeading = document.getElementById('MainHeader');
 const ldate = document.getElementById('ldate');
 const ltime = document.getElementById('ltime');
@@ -40,6 +41,7 @@ function displayMain(){
     submitButton.style.display = "none";
     goalContainer.style.display = "none";
     reset.style.display = "none";
+    selectGraph.style.display = "none";
 
     mainHeading.textContent = 'Sveiki atvykę į savo asmeninio tikslo stebėjimo įrankį';
 }
@@ -65,6 +67,7 @@ function displaySettings(){
     submitButton.style.display = "none";
     goalContainer.style.display = "block";
     reset.style.display = "block";
+    selectGraph.style.display = "none";
 
     mainHeading.textContent = 'Settings';
 }
@@ -186,9 +189,7 @@ function plotChart(data) {
             }
         });
     }
-
     
-
     return 'True'
   }
 
